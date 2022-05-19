@@ -20,12 +20,22 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark d-flex justify-content-between">
         <div class="m_header_icon" onclick="location.href='/'">메인으로</div>
         <ul class="navbar-nav d-flex">
+            {{#principal}}
             <li class="nav-item ">
-                <a class="m_header_menu_txt" href="#">로그인</a>
+                <a class="m_header_menu_txt" href="#">마이페이지</a>
+            </li>
+            <li class="nav-item">
+                <a class=" m_header_menu_txt" href="#">로그아웃</a>
+            </li>
+            {{/principal}}
+            {{^principal}}
+            <li class="nav-item ">
+                <a class="m_header_menu_txt" href="/loginForm">로그인</a>
             </li>
             <li class="nav-item">
                 <a class=" m_header_menu_txt" href="/joinform">회원가입</a>
             </li>
+            {{/principal}}
         </ul>
     </nav>
     <br>

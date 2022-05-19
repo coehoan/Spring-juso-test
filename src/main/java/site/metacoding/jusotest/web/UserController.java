@@ -17,21 +17,31 @@ public class UserController {
 
     private final UserService userService;
 
+    // 페인페이지
     @GetMapping("/")
     public String main() {
         return "/main";
     }
 
+    // 회원가입 페이지
     @GetMapping("/joinform")
     public String joinForm() {
         return "/user/joinForm";
     }
 
+    // 로그인 페이지
+    @GetMapping("/loginForm")
+    public String loginForm() {
+        return "/user/loginForm";
+    }
+
+    // 도로명주소 검색창 띄우기
     @GetMapping("/popUp")
     public String popUp() {
         return "/user/jusoPopup";
     }
 
+    // 도로명주소 검색결과 반영하기
     @PostMapping("/popUp")
     public String popUpCallback(String inputYn, String zipNo, String roadFullAddr, Model model) {
         model.addAttribute("inputYn", inputYn);
@@ -40,9 +50,10 @@ public class UserController {
         return "/user/jusoPopup";
     }
 
+    // 회원가입
     @PostMapping("/join")
     public String join(JoinReqDTO joinReqDTO) {
         userService.회원가입(joinReqDTO.toEntity());
-        return "/loginForm";
+        return "redirect:/loginForm";
     }
 }
