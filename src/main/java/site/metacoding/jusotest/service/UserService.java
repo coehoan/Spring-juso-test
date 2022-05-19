@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.jusotest.domain.User;
 import site.metacoding.jusotest.domain.UserRepository;
+import site.metacoding.jusotest.web.dto.UpdateReqDTO;
 
 @RequiredArgsConstructor
 @Service
@@ -34,5 +35,22 @@ public class UserService {
         String encodedPassword = bCryptPasswordEncoder.encode(rawPassword);
         user.setPassword(encodedPassword);
         userRepository.save(user);
+    }
+
+    @Transactional
+    public User 회원정보수정(Integer id, UpdateReqDTO updateReqDTO) {
+        Optional<User> userOp = userRepository.findById(id);
+        if (userOp.isPresent()) {
+            User userEntity = userOp.get();
+            if (updateReqDTO.getEmail() != userEntity.getEmail()) {
+                userEntity.setEmail(updateReqDTO.getEmail());
+            }
+            if (updateReqDTO.getAddress() != userEntity.getAddress()) {
+                userEntity.setZipNo(updateReqDTO.getZipNo());
+                userEntity.setAddress(updateReqDTO.getAddress());
+            }
+            return userEntity;
+        } else
+            return null;
     }
 }

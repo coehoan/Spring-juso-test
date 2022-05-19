@@ -2,16 +2,22 @@ package site.metacoding.jusotest.web;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.jusotest.domain.User;
+import site.metacoding.jusotest.domain.UserRepository;
 import site.metacoding.jusotest.service.UserService;
 import site.metacoding.jusotest.web.dto.JoinReqDTO;
+import site.metacoding.jusotest.web.dto.UpdateReqDTO;
 
 @RequiredArgsConstructor
 @Controller
@@ -20,7 +26,7 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
-    // 페인페이지
+    // 메인페이지
     @GetMapping("/")
     public String main() {
         return "/main";
@@ -38,6 +44,7 @@ public class UserController {
         return "/user/loginForm";
     }
 
+    // 마이페이지
     @GetMapping("/s/user/{id}/detail")
     public String detailForm(@PathVariable Integer id, Model model) {
         User userEntity = userService.마이페이지(id);
@@ -67,9 +74,17 @@ public class UserController {
         return "redirect:/loginForm";
     }
 
+    // 로그아웃
     @GetMapping("/s/logout")
     public String logout() {
         session.invalidate();
         return "/";
+    }
+
+    // 회원정보 수정
+    @PutMapping("/s/user/{id}/update")
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody UpdateReqDTO updateReqDTO) {
+        User userEntity = userService.회원정보수정(id, updateReqDTO);
+        return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 }
