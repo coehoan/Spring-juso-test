@@ -1,0 +1,55 @@
+{{> /layout/header}}
+
+<div class="container">
+    <h1>마이페이지</h1>
+    <hr>
+    <!-- 상세보기 폼 시작 -->
+    <form class="m_auth_box">
+        <div class="form-group">
+            <label>아이디</label>
+            <input id="username" name="username" type="text" class="form-control mt-3" value="{{user.username}}">
+        </div>
+        <div class="form-group mt-3">
+            <label>비밀번호</label>
+            <input id="password" name="password" type="password" class="form-control mt-3" title="password" readonly>
+        </div>
+        <div class="form-group mt-3">
+            <label>이메일</label>
+            <input id="email" name="email" type="email" class="form-control mt-3" placeholder="name@example.com"
+                value="{{user.email}}">
+        </div>
+        <div class="form-group mt-3">
+            <div class="d-flex justify-content-between">
+                <label>우편번호</label><input type="button" value="주소검색" onclick="goPopup();">
+            </div>
+            <input type="hidden" id="confmKey" name="confmKey" value="">
+            <input id="zipNo" type="text" name="zipNo" readonly class="form-control mt-3" value="{{user.zipNo}}">
+
+        </div>
+        <div class="form-group mt-3">
+            <label>주소</label>
+            <input type="text" id="roadFullAddr" name="address" class="form-control mt-3" readonly
+                value="{{user.address}}">
+        </div>
+        <div class="form-group mt-5">
+            <input id="btn-update" type="button" class="btn bg-dark text-light" value="수정하기">
+        </div>
+    </form>
+    <!-- 상세보기 폼 끝 -->
+</div>
+</body>
+<script>
+    function goPopup() {
+        var pop = window.open("/popUp", "pop", "width=570,height=420, scrollbars=yes, resizable=yes");
+    }
+    /** API 서비스 제공항목 확대 (2017.02) **/
+    function jusoCallBack(roadFullAddr, zipNo) {
+        // 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+        $("#zipNo").val(zipNo);
+        $("#roadFullAddr").val(roadFullAddr);
+    }
+</script>
+
+</html>
+
+{{> /layout/footer}}
