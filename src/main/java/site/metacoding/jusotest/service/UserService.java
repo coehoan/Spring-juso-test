@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.jusotest.domain.User;
 import site.metacoding.jusotest.domain.UserRepository;
+import site.metacoding.jusotest.handler.ex.CustomApiException;
 import site.metacoding.jusotest.web.dto.PasswordUpdateReqDto;
 import site.metacoding.jusotest.web.dto.UpdateReqDTO;
 
@@ -66,10 +67,12 @@ public class UserService {
                 String rawPassword = passwordUpdateReqDto.getUptPassword();
                 String encodedPassword = bCryptPasswordEncoder.encode(rawPassword);
                 userEntity.setPassword(encodedPassword);
+                return userEntity;
+            } else {
+                throw new CustomApiException("비밀번호가 일치하지 않습니다.");
             }
-            return userEntity;
-        } else
-            return null;
+        }
+        return null;
     }
 
     @Transactional
