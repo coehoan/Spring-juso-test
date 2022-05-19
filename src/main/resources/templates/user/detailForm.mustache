@@ -37,7 +37,10 @@
                 value="{{user.address}}">
         </div>
         <div class="form-group mt-5">
-            <input id="btn-update" type="button" class="btn bg-dark text-light" value="수정하기">
+            <div class="d-flex justify-content-between">
+                <input id="btn-update" type="button" class="btn bg-dark text-light" value="수정하기">
+                <input id="btn-delete" type="button" class="btn bg-danger text-light" value="회원탈퇴">
+            </div>
         </div>
     </form>
     <!-- 상세보기 폼 끝 -->
@@ -84,8 +87,23 @@
     $("#password-update").click(() => {
         passwordUpdate();
     })
-    async function passwordUpdate() {
+    function passwordUpdate() {
         let pop = window.open("/passwordPopup", "pop", "width=570,height=420, scrollbars=yes, resizable=yes");
+    }
+
+    // 회원탈퇴 버튼 클릭
+    $("#btn-delete").click(() => {
+        deleteUser();
+    })
+    async function deleteUser() {
+        let id = $("#id").val();
+        let response = await fetch(`/s/user/${id}/delete`, {
+            method: "DELETE"
+        })
+        if (response.status == 200) {
+            alert("회원 탈퇴 완료");
+            location.replace("/");
+        }
     }
 </script>
 

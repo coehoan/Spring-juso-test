@@ -71,4 +71,12 @@ public class UserService {
         } else
             return null;
     }
+
+    @Transactional
+    public void 회원탈퇴(Integer id) {
+        Optional<User> userOp = userRepository.findById(id);
+        if (userOp.isPresent()) {
+            userRepository.deleteById(id);
+        }
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -100,5 +101,13 @@ public class UserController {
             @RequestBody PasswordUpdateReqDto passwordUpdateReqDto) {
         User userEntity = userService.비밀번호수정(id, passwordUpdateReqDto);
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
+    }
+
+    // 회원탈퇴
+    @DeleteMapping("/s/user/{id}/delete")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        userService.회원탈퇴(id);
+        session.invalidate();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
