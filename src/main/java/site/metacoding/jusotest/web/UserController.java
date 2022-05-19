@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.jusotest.domain.User;
-import site.metacoding.jusotest.domain.UserRepository;
 import site.metacoding.jusotest.service.UserService;
 import site.metacoding.jusotest.web.dto.JoinReqDTO;
+import site.metacoding.jusotest.web.dto.PasswordUpdateReqDto;
 import site.metacoding.jusotest.web.dto.UpdateReqDTO;
 
 @RequiredArgsConstructor
@@ -58,6 +58,12 @@ public class UserController {
         return "/user/jusoPopup";
     }
 
+    // 비밀번호 변경 검색창 띄우기
+    @GetMapping("/passwordPopup")
+    public String passwordPopup() {
+        return "/user/passwordPopup";
+    }
+
     // 도로명주소 검색결과 반영하기
     @PostMapping("/popUp")
     public String popUpCallback(String inputYn, String zipNo, String roadFullAddr, Model model) {
@@ -85,6 +91,14 @@ public class UserController {
     @PutMapping("/s/user/{id}/update")
     public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody UpdateReqDTO updateReqDTO) {
         User userEntity = userService.회원정보수정(id, updateReqDTO);
+        return new ResponseEntity<>(userEntity, HttpStatus.OK);
+    }
+
+    // 비밀번호 수정
+    @PutMapping("/s/user/{id}/passwordUpdate")
+    public ResponseEntity<?> passwordUpdate(@PathVariable Integer id,
+            @RequestBody PasswordUpdateReqDto passwordUpdateReqDto) {
+        User userEntity = userService.비밀번호수정(id, passwordUpdateReqDto);
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 }

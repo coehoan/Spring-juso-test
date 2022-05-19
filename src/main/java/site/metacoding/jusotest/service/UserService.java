@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.jusotest.domain.User;
 import site.metacoding.jusotest.domain.UserRepository;
+import site.metacoding.jusotest.web.dto.PasswordUpdateReqDto;
 import site.metacoding.jusotest.web.dto.UpdateReqDTO;
 
 @RequiredArgsConstructor
@@ -48,6 +49,23 @@ public class UserService {
             if (updateReqDTO.getAddress() != userEntity.getAddress()) {
                 userEntity.setZipNo(updateReqDTO.getZipNo());
                 userEntity.setAddress(updateReqDTO.getAddress());
+            }
+            return userEntity;
+        } else
+            return null;
+    }
+
+    @Transactional
+    public User 비밀번호수정(Integer id, PasswordUpdateReqDto passwordUpdateReqDto) {
+        Optional<User> userOp = userRepository.findById(id);
+        if (userOp.isPresent()) {
+            User userEntity = userOp.get();
+
+            // 기존 비밀번호랑 DB의 비밀번호가 일치하는지
+            if (bCryptPasswordEncoder.matches(passwordUpdateReqDto.getPrePassword(), userEntity.getPassword())) {
+                String rawPassword = passwordUpdateReqDto.getUptPassword();
+                String encodedPassword = bCryptPasswordEncoder.encode(rawPassword);
+                userEntity.setPassword(encodedPassword);
             }
             return userEntity;
         } else
