@@ -1,6 +1,6 @@
 package site.metacoding.jusotest.web;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +16,7 @@ import site.metacoding.jusotest.web.dto.JoinReqDTO;
 public class UserController {
 
     private final UserService userService;
+    private final HttpSession session;
 
     // 페인페이지
     @GetMapping("/")
@@ -55,5 +56,11 @@ public class UserController {
     public String join(JoinReqDTO joinReqDTO) {
         userService.회원가입(joinReqDTO.toEntity());
         return "redirect:/loginForm";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        session.invalidate();
+        return "/";
     }
 }
