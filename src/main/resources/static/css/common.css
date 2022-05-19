@@ -1,0 +1,11 @@
+.m_header_icon {
+    display: flex;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.m_header_menu_txt {
+    color: white;
+    margin-right: 10px;
+}

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class JusoTestController {
 
     @GetMapping("/")
-    public String test() {
-        return "/joinForm";
+    public String main() {
+        return "/main";
     }
 
     @GetMapping("/popUp")
