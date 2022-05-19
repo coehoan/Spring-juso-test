@@ -1,0 +1,76 @@
+{{> /layout/header}}
+
+<div class="container">
+    <h1>회원가입</h1>
+    <hr>
+    <!-- 회원가입 폼 시작 -->
+    <form class="m_auth_box" action="/join" method="post">
+        <div class="form-group">
+            <label>아이디</label>
+            <input id="username" name="username" type="text" class="form-control mt-3" required>
+        </div>
+        <div class="form-group mt-3">
+            <label>비밀번호</label>
+            <input id="password" name="password" type="password" class="form-control mt-3" title="password" required>
+        </div>
+        <div class="form-group mt-3">
+            <label>이메일</label>
+            <input id="email" name="email" type="email" class="form-control mt-3" placeholder="name@example.com"
+                required>
+        </div>
+        <div class="form-group mt-3">
+            <div class="d-flex justify-content-between">
+                <label>우편번호</label><input type="button" value="주소검색" onclick="goPopup();">
+            </div>
+            <input type="hidden" id="confmKey" name="confmKey" value="">
+            <input id="zipNo" type="text" name="zipNo" readonly class="form-control mt-3">
+
+        </div>
+        <div class="form-group mt-3">
+            <label>주소</label>
+            <input type="text" id="roadFullAddr" name="address" class="form-control mt-3" readonly required>
+        </div>
+        <div class="form-group mt-5">
+            <button type="submit" class="btn bg-dark text-light">회원가입</button>
+        </div>
+    </form>
+    <!-- 회원가입 폼 끝 -->
+</div>
+</body>
+<script>
+    function goPopup() {
+        var pop = window.open("popUp", "pop", "width=570,height=420, scrollbars=yes, resizable=yes");
+    }
+    /** API 서비스 제공항목 확대 (2017.02) **/
+    function jusoCallBack(roadFullAddr, zipNo) {
+        // 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+        $("#zipNo").val(zipNo);
+        $("#roadFullAddr").val(roadFullAddr);
+    }
+
+    //회원가입
+    //$("#btn-join").click(() => {
+    //    join();
+    //});
+
+    //async function join() {
+    //    let joinDto = {
+    //        username: $("#username").val(),
+     //       password: $("#password").val(),
+      //      email: $("#email").val(),
+       //     zipNo: $("#zipNo").val(),
+       //     address: $("#roadFullAddr").val(),
+       // }
+       // let response = await fetch("/join", {
+       //     method: "POST",
+       //     body: JSON.stringify(joinDto),
+        //    headers: {
+          //      'Content-Type': 'application/json; charset=utf-8'
+           // }
+       // })
+    //}
+</script>
+
+</html>
+
+{{> /layout/footer}}

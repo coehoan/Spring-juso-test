@@ -9,16 +9,16 @@ spring:
   mustache:
     expose-session-attributes: true
   datasource: 
-      url: jdbc:mariadb://localhost:3306/greendb
+      url: jdbc:mariadb://localhost:3306/jusodb
       driver-class-name: org.mariadb.jdbc.Driver
-      username: green
-      password: green1234
+      username: juso
+      password: 1234
   jpa:
     hibernate:
       ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
+    show-sql: true 
 
   output:
     ansi:

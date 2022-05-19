@@ -9,3 +9,12 @@
     color: white;
     margin-right: 10px;
 }
+
+.m_auth_box {
+    padding: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 500px;
+    border: 1px solid rgba(128, 128, 128, 0.267);
+    border-radius: 15px;
+}
