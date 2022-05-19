@@ -21,10 +21,10 @@ spring:
     show-sql: true
 
   output:
-    ansi: 
-      enabled: always
+    ansi:
+      enabled: always   
 
   security:
     user:
       name: test
-      password: 1234    
+      password: 1234 
